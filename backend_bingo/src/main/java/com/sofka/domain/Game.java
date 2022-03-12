@@ -1,5 +1,6 @@
 package com.sofka.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import lombok.Data;
@@ -39,4 +40,5 @@ public class Game implements Serializable {
     @Column(name = "cardboard")
     private String cardBoard;
 
+    private ArrayList<Integer> cardcheck;
 }

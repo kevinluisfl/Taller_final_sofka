@@ -126,11 +126,11 @@ public class GamePlayerController {
     }
 
     /**
-     * actualizar campos para descalificar jugador
+     * actualizar campo para descalificar jugador
      */
     @PatchMapping(path="/gameplayer/disqualified/{id}")
     public ResponseEntity<GamePlayer>  actualizarGanador(GamePlayer gamePlayer, @PathVariable("id") Long id) {
-        log.info("Juego a modificar ganador: {}", gamePlayer);
+        log.info("actualizar jugador descalificado: {}", gamePlayer);
         gamePlayerService.updateLoser(id,gamePlayer);
         return new ResponseEntity<>(gamePlayer, HttpStatus.OK);
     }

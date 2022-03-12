@@ -1,19 +1,14 @@
 package com.sofka.controller;
 
 import com.sofka.domain.Game;
+import com.sofka.service.GameBallotService;
 import com.sofka.service.GameService;
 import com.sofka.util.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
@@ -22,6 +17,9 @@ import java.util.ArrayList;
 public class GameController {
     @Autowired
     private GameService gameService;
+
+    @Autowired
+    private GameBallotService gameBallotService;
 
     private Response response = new Response();
 
@@ -82,13 +80,65 @@ public class GameController {
     /**
      * validar ganador
      */
-    @PostMapping(path="/bingo")
-    public Response ganar(Game game) {
-        log.info("juego ganador: {}", game);
-        //ArrayList<Integer> lines = [ [0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8],[0, 4, 8],[2, 4, 6]];
+    @PostMapping(path="/game/bingo/{id}")
+    public Response ganar(@RequestBody Game game, @PathVariable("id") Long id) {
+        log.info("juego jugador enviado: {}", game);
+        log.info("cardcheck: {}", game.getCardcheck());
 
+        ////logica revisar ganador
+        ArrayList<Integer> cardcheck = game.getCardcheck();
+        ArrayList<Integer> ballotout;
+        //ballotout = gameBallotService.ballotOut(game.getId());
+        ballotout = gameBallotService.ballotOut(id);
+        ballotout.add(0);
+        int lines[][] = { {0,1,2,3,4},{5,6,7,8,9},{10,11,12,13,14},{15,16,17,18,19},{20,21,22,23,24},
+                        {0,5,10,15,20},{1,6,11,16,21},{2,7,12,17,22},{3,8,13,18,23},{4,9,14,19,24},
+                        {0,6,12,18,24},{4,8,12,16,20},{0,4,12,20,24}};
+
+        log.info("balotas anunciadas: {}", ballotout);
+        ///de 0 a 4 horizontal, 5 a 9 verticales, 10 a 11 diagonales, 12 4 esquina
+        boolean gano = false;
+        String lineaWin = "";
+        for(int i = 0; i < lines.length; i++){
+            int a = lines[i][0];
+            int b = lines[i][1];
+            int c = lines[i][2];
+            int d = lines[i][3];
+            int e = lines[i][4];
+
+            if(ballotout.contains(cardcheck.get(a)) && ballotout.contains(cardcheck.get(b))
+                    && ballotout.contains(cardcheck.get(c)) && ballotout.contains(cardcheck.get(d))
+                    && ballotout.contains(cardcheck.get(e))){
+                log.info("::::::::::::::::::::::::::::::");
+                log.info("a: {}", cardcheck.get(a));
+                log.info("b: {}", cardcheck.get(b));
+                log.info("c: {}", cardcheck.get(c));
+                log.info("d: {}", cardcheck.get(d));
+                log.info("e: {}", cardcheck.get(e));
+                log.info("::::::::::::::::::::::::::::::");
+                gano = true;
+                if(i < 5){
+                    lineaWin="Horizontal";
+                }else if(i < 10){
+                    lineaWin="Vertical";
+                }else if(i < 12){
+                    lineaWin="Diagonal";
+                }else{
+                    lineaWin="4 Esquinas";
+                }
+            }
+        }
+
+        if(gano){
+            log.info("GANO!, actualizar ganador de juego, figura: {}", lineaWin);
+        }else{
+            log.info("PERDISTE!, descaificar jugador, : {}");
+        }
         ///si gana enviar dato y usar metodo de arriba
         ///si no gana actualizar game_player disqualified = 'true'
+        response.dataGame.add(lineaWin);
+        response.dataGame.add(gano);
+        ///fin logica revisar ganadar
         return response;
     }
 

@@ -95,6 +95,7 @@ public class GameBallotController {
         /**
          * guardando datos a enviar al front
          */
+        response.dataGame.removeAll(response.dataGame);
         response.dataGame.add(gameBallot);
         response.dataGame.add(ballotout);
         response.dataGame.add(letter);

@@ -99,6 +99,7 @@ public class GamePlayerController {
         /**
          * guardando datos a enviar al front
          */
+        response.dataGame.removeAll(response.dataGame);
         response.dataGame.add(gamePlayer);
         response.dataGame.add(cardPlayer);
         response.dataGame.add(cardPlayerCheck);

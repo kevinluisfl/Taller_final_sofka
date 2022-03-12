@@ -1,7 +1,9 @@
 package com.sofka.controller;
 
 import com.sofka.domain.Game;
+import com.sofka.domain.GamePlayer;
 import com.sofka.service.GameBallotService;
+import com.sofka.service.GamePlayerService;
 import com.sofka.service.GameService;
 import com.sofka.util.Response;
 import lombok.extern.slf4j.Slf4j;
@@ -19,9 +21,14 @@ public class GameController {
     private GameService gameService;
 
     @Autowired
+    private GamePlayerService gamePlayerService;
+
+    @Autowired
     private GameBallotService gameBallotService;
 
     private Response response = new Response();
+
+    Game game = new Game();
 
     /**
      * listar todos los juegos
@@ -81,12 +88,14 @@ public class GameController {
      * validar ganador
      */
     @PostMapping(path="/game/bingo/{id}")
-    public Response ganar(@RequestBody Game game, @PathVariable("id") Long id) {
-        log.info("juego jugador enviado: {}", game);
-        log.info("cardcheck: {}", game.getCardcheck());
+    public Response ganar(@RequestBody GamePlayer gamePlayer, @PathVariable("id") Long id) {
+        log.info("player: {}", gamePlayer.getPlayer());
+        log.info("cardboard: {}", gamePlayer.getCardBoard());
+        log.info("cardcheck: {}", gamePlayer.getCardcheck());
+        gamePlayer.setGameId(id);
 
         ////logica revisar ganador
-        ArrayList<Integer> cardcheck = game.getCardcheck();
+        ArrayList<Integer> cardcheck = gamePlayer.getCardcheck();
         ArrayList<Integer> ballotout;
         //ballotout = gameBallotService.ballotOut(game.getId());
         ballotout = gameBallotService.ballotOut(id);
@@ -118,9 +127,9 @@ public class GameController {
                 log.info("::::::::::::::::::::::::::::::");
                 gano = true;
                 if(i < 5){
-                    lineaWin="Horizontal";
+                    lineaWin="Horizontal "+(i+1);
                 }else if(i < 10){
-                    lineaWin="Vertical";
+                    lineaWin="Vertical "+(i-4);
                 }else if(i < 12){
                     lineaWin="Diagonal";
                 }else{
@@ -131,13 +140,19 @@ public class GameController {
 
         if(gano){
             log.info("GANO!, actualizar ganador de juego, figura: {}", lineaWin);
+            game.setId(id);
+            game.setGameWinner(gamePlayer.getPlayer());
+            game.setCardBoard(gamePlayer.getCardBoard());
+            gameService.updateWinner(id,game);
         }else{
             log.info("PERDISTE!, descaificar jugador, : {}");
+            gamePlayerService.updateLoser(id,gamePlayer);
         }
-        ///si gana enviar dato y usar metodo de arriba
-        ///si no gana actualizar game_player disqualified = 'true'
-        response.dataGame.add(lineaWin);
+
+        response.dataGame.removeAll(response.dataGame);
         response.dataGame.add(gano);
+        response.dataGame.add(lineaWin);
+        response.dataGame.add(gamePlayer);
         ///fin logica revisar ganadar
         return response;
     }

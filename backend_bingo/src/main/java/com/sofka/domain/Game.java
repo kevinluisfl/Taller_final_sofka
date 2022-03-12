@@ -40,5 +40,4 @@ public class Game implements Serializable {
     @Column(name = "cardboard")
     private String cardBoard;
 
-    private ArrayList<Integer> cardcheck;
 }

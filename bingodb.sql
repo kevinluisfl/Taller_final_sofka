@@ -19,6 +19,7 @@ CREATE TABLE game_player (
 	game_id INT NOT NULL DEFAULT '0',
 	player VARCHAR(200) NOT NULL DEFAULT '',
 	cardboard VARCHAR(200) NOT NULL DEFAULT '',
+	disqualified ENUM('true','false') NOT NULL DEFAULT 'false',
 	PRIMARY KEY (id_game_player),
 	INDEX game_id (game_id)
 )ENGINE=InnoDB

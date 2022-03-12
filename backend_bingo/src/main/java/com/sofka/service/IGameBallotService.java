@@ -2,6 +2,7 @@ package com.sofka.service;
 
 import com.sofka.domain.GameBallot;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,6 +15,8 @@ public interface IGameBallotService {
     public GameBallot update(Long id, GameBallot gameBallot);
 
     public void delete(GameBallot gameBallot);
+
+    public ArrayList<Integer> ballotOut(Long id);
 
     public Optional<GameBallot> findContact(GameBallot gameBallot);
 

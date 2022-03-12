@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+
 @Slf4j
 @RestController
 public class GameController {
@@ -76,6 +78,18 @@ public class GameController {
         log.info("Juego a modificar ganador: {}", game);
         gameService.updateWinner(id,game);
         return new ResponseEntity<>(game, HttpStatus.OK);
+    }
+    /**
+     * validar ganador
+     */
+    @PostMapping(path="/bingo")
+    public Response ganar(Game game) {
+        log.info("juego ganador: {}", game);
+        //ArrayList<Integer> lines = [ [0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8],[0, 4, 8],[2, 4, 6]];
+
+        ///si gana enviar dato y usar metodo de arriba
+        ///si no gana actualizar game_player disqualified = 'true'
+        return response;
     }
 
 }

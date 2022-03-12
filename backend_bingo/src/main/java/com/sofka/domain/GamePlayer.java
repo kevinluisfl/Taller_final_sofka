@@ -36,4 +36,7 @@ public class GamePlayer implements Serializable {
     @Column(name = "cardboard")
     private String cardBoard;
 
+    @Column(name = "disqualified")
+    private String disqualified = "false";
+
 }

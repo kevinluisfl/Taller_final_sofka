@@ -1,6 +1,7 @@
 package com.sofka.service;
 
 import com.sofka.dao.GamePlayerDao;
+import com.sofka.domain.Game;
 import com.sofka.domain.GamePlayer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,6 +42,12 @@ public class GamePlayerService implements IGamePlayerService {
     @Transactional
     public void delete(GamePlayer gamePlayer) {
         gamePlayerDao.delete(gamePlayer);
+    }
+
+    @Override
+    @Transactional
+    public void updateLoser(Long id, GamePlayer gamePlayer) {
+        gamePlayerDao.updateLoser(id, gamePlayer.getPlayer());
     }
 
     @Override

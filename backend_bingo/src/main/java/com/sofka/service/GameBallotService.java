@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,6 +42,11 @@ public class GameBallotService implements IGameBallotService {
     @Transactional
     public void delete(GameBallot gameBallot) {
         gameBallotDao.delete(gameBallot);
+    }
+
+    @Override
+    public ArrayList<Integer> ballotOut(Long id) {
+        return gameBallotDao.ballotOut(id);
     }
 
     @Override

@@ -40,6 +40,6 @@ public class GamePlayer implements Serializable {
     @Column(name = "disqualified")
     private String disqualified = "false";
 
-    private ArrayList<Integer> cardcheck;
+    transient private ArrayList<Integer> cardcheck;
 
 }

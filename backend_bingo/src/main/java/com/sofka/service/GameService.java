@@ -10,6 +10,13 @@ import org.springframework.transaction.annotation.Transactional;
 import com.sofka.dao.GameDao;
 import com.sofka.domain.Game;
 
+/**
+ * clase que implementa metodos abstractos para los juegos
+ * @version 1.0.0 2002-03-12
+ * @author Kevin Luis Florez Lozada
+ * @since 1.0.0
+ */
+
 @Service
 public class GameService implements IGameService {
 

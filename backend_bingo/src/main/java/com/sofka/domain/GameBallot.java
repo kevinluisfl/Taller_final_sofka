@@ -10,6 +10,13 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
 
+/**
+ * clase para mapear la tabla de las balotas
+ * @version 1.0.0 2002-03-12
+ * @author Kevin Luis Florez Lozada
+ * @since 1.0.0
+ */
+
 @Data
 @Entity
 @Table(name="game_ballot")

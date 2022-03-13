@@ -6,6 +6,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
+/**
+ * interfaz DAO para las sentencias SQL de los jugadores
+ * @version 1.0.0 2002-03-12
+ * @author Kevin Luis Florez Lozada
+ * @since 1.0.0
+ */
+
 public interface GamePlayerDao extends CrudRepository<GamePlayer, Long> {
     @Modifying
     @Query("UPDATE GamePlayer gp SET gp.disqualified = 'true' WHERE gp.gameId = :gameId AND gp.player = :player")

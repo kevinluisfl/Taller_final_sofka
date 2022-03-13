@@ -18,6 +18,13 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * clase para control de la logica de las balotas
+ * @version 1.0.0 2002-03-12
+ * @author Kevin Luis Florez Lozada
+ * @since 1.0.0
+ */
+
 @Slf4j
 @RestController
 public class GameBallotController {

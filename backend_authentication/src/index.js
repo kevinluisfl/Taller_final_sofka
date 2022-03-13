@@ -1,3 +1,9 @@
+/**
+ * configuracion de servidor
+ * @version 1.0.0 2002-03-12
+ * @author Kevin Luis Florez Lozada
+ * @since 1.0.0
+ */
 const express = require('express');
 const app = express();
 const engine = require('ejs-mate');

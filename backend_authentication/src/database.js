@@ -1,3 +1,9 @@
+/**
+ * configuracion de conexion mongodb
+ * @version 1.0.0 2002-03-12
+ * @author Kevin Luis Florez Lozada
+ * @since 1.0.0
+ */
 const mongoose = require('mongoose');
 const { mongodb } = require('./keys');
 

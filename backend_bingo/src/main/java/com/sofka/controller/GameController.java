@@ -14,6 +14,13 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
+/**
+ * clase para el control de la logica del juego
+ * @version 1.0.0 2002-03-12
+ * @author Kevin Luis Florez Lozada
+ * @since 1.0.0
+ */
+
 @Slf4j
 @RestController
 public class GameController {

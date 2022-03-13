@@ -10,6 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * clase que implementa metodos abstractos para las balotas
+ * @version 1.0.0 2002-03-12
+ * @author Kevin Luis Florez Lozada
+ * @since 1.0.0
+ */
+
 @Service
 public class GameBallotService implements IGameBallotService {
 

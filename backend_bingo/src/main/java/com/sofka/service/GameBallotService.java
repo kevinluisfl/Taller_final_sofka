@@ -12,7 +12,7 @@ import java.util.Optional;
 
 /**
  * clase que implementa metodos abstractos para las balotas
- * @version 1.0.0 2002-03-12
+ * @version 1.0.0 2022-03-12
  * @author Kevin Luis Florez Lozada
  * @since 1.0.0
  */

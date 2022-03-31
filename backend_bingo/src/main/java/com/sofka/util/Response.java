@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /**
  * clase para manejar las respuestas en las peticiones
- * @version 1.0.0 2002-03-12
+ * @version 1.0.0 2022-03-12
  * @author Kevin Luis Florez Lozada
  * @since 1.0.0
  */
